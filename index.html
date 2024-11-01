@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
         <title>Unit Converter</title>
         <link rel="stylesheet" href="index.css">
     </head>
@@ -8,24 +12,30 @@
     <body>
         <div class="input-container">
             <h1 id="main-heading">Metric/Imperial Unit Conversion</h1>
-            <input id="main-input" type="text">
+            <input id="main-input" type="text" placeholder="0">
             <button id="convert-btn">Convert</button>
-            <button id="clear-btn">Clear</button>
+            <div>
+                <button id="clear-history-btn">Clear history</button>
+                <button id="clear-btn">Clear</button>
+            </div> 
+            <p id="history-el">No history to see</p>
         </div>
+        
 
-        <div class="length-container">
-            <h3 id="length-heading">Length (Meter/Feet)</h3>
+        <div class="unit-container">
+            <h3 id="unit-heading">Length (Meter/Feet)</h3>
             <p id="length-p"></p>
         </div>
-        <div class="length-container">
-            <h3 id="length-heading">Volume (Liters/Gallons)
+        <div class="unit-container">
+            <h3 id="unit-heading">Volume (Liters/Gallons)
             </h3>
             <p id="volume-p"></p>
         </div>
-        <div class="length-container">
-            <h3 id="length-heading">Mass (Kilograms/Pounds)</h3>
+        <div class="unit-container">
+            <h3 id="unit-heading">Mass (Kilograms/Pounds)</h3>
             <p id="mass-p"></p>
         </div>
+
 
         <script type="module" src="index.js"></script>
     </body>

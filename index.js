@@ -16,36 +16,50 @@ const volumeP = document.getElementById("volume-p")
 const massP = document.getElementById("mass-p")
 const convertBtn = document.getElementById("convert-btn")
 const clearBtn = document.getElementById("clear-btn")
+const clearHistoryBtn = document.getElementById("clear-history-btn")
+const historyEl = document.getElementById("history-el")
+
 let meter = 3.281
 let liter = 0.264
 let kilogram = 2.204
 
+
+function render(history) {
+    // Slice the array to get the last 5 entries
+    const recentHistory = history.slice(-5);
+    let historyItems = recentHistory.map(item => `[${item}]`).join(", ");
+    historyEl.innerHTML = historyItems;
+}
+
 onValue(referenceInDB, function(snapshot) {
     const doesSnapshotExists = snapshot.exists()
-
+    
     if (doesSnapshotExists) {
         const snapshotValue = snapshot.val()
         const units = Object.values(snapshotValue)
         console.log("Units from DB:", units)
+
+        render(units)
     }
 })
 
-convertBtn.addEventListener("click", function() {
 
+convertBtn.addEventListener("click", function() {
+    
     const inputValue = parseFloat(mainInput.value);
     
     if (!isNaN(inputValue)) {
         push(referenceInDB, inputValue)
-
+        
         lengthP.innerHTML = `${inputValue} meters = ${(inputValue * meter).toFixed(3)} feet |
         ${inputValue} feet = ${(inputValue / meter).toFixed(3)} meter`
-
+        
         volumeP.innerHTML = `${inputValue} liters = ${(inputValue * liter).toFixed(3)} gallons |
         ${inputValue} gallons = ${(inputValue / liter).toFixed(3)} litres`
-
+        
         massP.innerHTML = `${inputValue} kilos = ${(inputValue * kilogram).toFixed(3)} pounds |
         ${inputValue} pounds = ${(inputValue / kilogram).toFixed(3)} kilos`
-
+        
     } else {
         lengthP.textContent = "invalid input"
         volumeP.textContent = "invalid input"
@@ -54,7 +68,12 @@ convertBtn.addEventListener("click", function() {
     
 })
 
-clearBtn.addEventListener("click", function(){
+clearHistoryBtn.addEventListener("click", function(){
     mainInput.value = ""
     remove(referenceInDB)
+    historyEl.textContent = ""
+})
+
+clearBtn.addEventListener("click", function(){
+    mainInput.value = ""
 })
